@@ -38,6 +38,22 @@
             "backgroundColor": "#000000"
           }
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Iranyeakn-Black.ttf",
+            "./assets/fonts/Iranyekan-Bold.ttf",
+            "./assets/fonts/Iranyekan-Extrablack.ttf",
+            "./assets/fonts/Iranyekan-Extrabold.ttf",
+            "./assets/fonts/Iranyekan-Light.ttf",
+            "./assets/fonts/Iranyekan-Medium.ttf",
+            "./assets/fonts/Iranyekan-Regular.ttf",
+            "./assets/fonts/Iranyekan-Thin.ttf",
+            "./assets/fonts/Poppins-Regular.ttf"
+          ]
+        }
       ]
     ],
     "experiments": {
