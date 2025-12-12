@@ -10,6 +10,7 @@ export const COLORS = {
     white: "#ffffff",
     error: "#f03e3e",
     success: "#37b24d",
+    primaryBtnText: "#fff",
   },
   dark: {
     bg: "#282828",
@@ -22,5 +23,6 @@ export const COLORS = {
     white: "#ffffff",
     error: "#f03e3e",
     success: "#37b24d",
+    primaryBtnText: "#fff",
   },
 };
