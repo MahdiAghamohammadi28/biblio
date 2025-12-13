@@ -56,7 +56,7 @@ export default function SignInForm() {
       return;
     }
 
-    router.replace("/(drawer)/index");
+    router.replace("/(drawer)");
   }
 
   return (
