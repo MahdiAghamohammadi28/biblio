@@ -12,10 +12,14 @@ export default function Btn({
   textColor = COLORS.light.text,
   borderColor = COLORS.light.primary,
   onPress,
+  disabled,
+  style,
+  fontSize,
 }: BtnProps) {
   return (
     <TouchableOpacity
       style={[
+        style,
         styles.btn,
         styles[variant],
         {
@@ -23,11 +27,27 @@ export default function Btn({
           height,
           borderWidth: 1,
           borderColor: variant === "ghost" ? "transparent" : borderColor,
+          opacity: disabled ? 0.5 : 1,
         },
       ]}
       onPress={onPress}
+      disabled={disabled}
     >
-      <Text style={[styles.btnText, { color: textColor }]}>{children}</Text>
+      {typeof children === "string" ? (
+        <Text
+          style={[
+            styles.btnText,
+            {
+              color: textColor,
+              fontSize: fontSize ? fontSize : moderateScale(18),
+            },
+          ]}
+        >
+          {children}
+        </Text>
+      ) : (
+        children
+      )}
     </TouchableOpacity>
   );
 }
@@ -49,6 +69,5 @@ const styles = StyleSheet.create({
   },
   btnText: {
     fontFamily: "IranYekan-Medium",
-    fontSize: moderateScale(18),
   },
 });

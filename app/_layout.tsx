@@ -1,11 +1,15 @@
+import { supabase } from "@/utils/supabase";
+import { Session } from "@supabase/supabase-js";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { router, Stack, usePathname } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
+  const pathname = usePathname();
+
   const [loaded, error] = useFonts({
     "IranYekan-Thin": require("@/assets/fonts/Iranyekan-Thin.ttf"),
     "IranYekan-Light": require("@/assets/fonts/Iranyekan-Light.ttf"),
@@ -18,6 +22,41 @@ export default function RootLayout() {
     "Poppins-Regular": require("@/assets/fonts/Poppins-Regular.ttf"),
   });
 
+  const [session, setSession] = useState<Session | null>(null);
+  const [isSessionLoading, setIsSessionLoading] = useState<boolean>(true);
+
+  useEffect(() => {
+    supabase.auth.getSession().then(({ data }) => {
+      setSession(data.session);
+      setIsSessionLoading(false);
+    });
+
+    const { data: authListener } = supabase.auth.onAuthStateChange(
+      (_event, newSession) => {
+        setSession(newSession);
+      }
+    );
+
+    return () => {
+      authListener.subscription.unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isSessionLoading) return;
+
+    // If the user IS authenticated and currently on an auth screen, move them to the app
+    if (session) {
+      router.replace("/(drawer)");
+      return;
+    }
+
+    // If the user is NOT authenticated, handle first-time flow
+    if (!session) {
+      router.replace("/(auth)/signup");
+    }
+  }, [session, isSessionLoading]);
+
   useEffect(() => {
     if (loaded || error) {
       SplashScreen.hideAsync();
@@ -28,5 +67,5 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Stack />;
+  return <Stack screenOptions={{ headerShown: false }} />;
 }
