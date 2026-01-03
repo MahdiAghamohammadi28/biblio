@@ -1,6 +1,6 @@
-import { checkEmailExists } from "@/api/auth";
 import { COLORS } from "@/constants/colors";
 import SvgIcons from "@/constants/icons";
+import { checkEmailExists } from "@/features/auth";
 import { supabase } from "@/utils/supabase";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link } from "expo-router";
@@ -8,7 +8,6 @@ import debounce from "lodash.debounce";
 import React, { useEffect, useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
-  ActivityIndicator,
   Dimensions,
   KeyboardAvoidingView,
   StyleSheet,
@@ -123,7 +122,7 @@ export default function SignUpForm({ onSendConfirmEmail }: SignUpFormProps) {
               keyboardType="default"
               value={value}
               onChangeText={onChange}
-              textAlign="left"
+              textAlign="right"
             />
           )}
           rules={{ required: true }}
@@ -207,20 +206,24 @@ export default function SignUpForm({ onSendConfirmEmail }: SignUpFormProps) {
         )}
       </View>
       <Btn
+        label="ثبت نام"
         variant="default"
-        width={"100%"}
-        height={verticalScale(40)}
-        textColor={COLORS.light.primaryBtnText}
+        labelStyle={{
+          color: COLORS.light.primaryBtnText,
+          fontSize: moderateScale(14),
+        }}
         onPress={handleSubmit(onSubmit)}
         disabled={isSubmitting}
-        style={{ marginTop: verticalScale(12) }}
-      >
-        {isSubmitting ? (
-          <ActivityIndicator size={20} color={COLORS.light.white} />
-        ) : (
-          "ثبت نام"
-        )}
-      </Btn>
+        loading={isSubmitting}
+        loadingDotsSize={10}
+        loadingDotsColor={COLORS.light.white}
+        style={{
+          width: "100%",
+          height: verticalScale(40),
+          marginTop: verticalScale(12),
+          borderColor: COLORS.light.primary,
+        }}
+      />
 
       <View style={styles.redirection}>
         <Text style={styles.redirectionLabel}>قبلا ثبت نام کرده اید؟</Text>

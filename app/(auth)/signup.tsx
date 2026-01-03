@@ -20,14 +20,15 @@ export default function SignUp() {
           </Text>
           <Btn
             variant="ghost"
-            width={scale(180)}
-            height={verticalScale(40)}
+            label="بازگست به صفحه ورود"
             onPress={() => router.replace("/(auth)/signin")}
-            style={{ marginTop: 20 }}
-            fontSize={moderateScale(12)}
-          >
-            بازگست به صفحه ورود
-          </Btn>
+            style={{
+              width: scale(180),
+              height: verticalScale(40),
+              marginTop: 20,
+            }}
+            labelStyle={{ fontSize: moderateScale(12) }}
+          />
         </View>
       ) : (
         <>
