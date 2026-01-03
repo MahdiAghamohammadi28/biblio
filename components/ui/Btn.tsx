@@ -1,20 +1,39 @@
+import Loading from "@/components/ui/Loading";
 import { COLORS } from "@/constants/colors";
+import SvgIcons from "@/constants/icons";
 import { BtnProps } from "@/type";
 import React from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
-import { moderateScale } from "react-native-size-matters";
+
+function getBorderColor(variant: BtnProps["variant"]) {
+  switch (variant) {
+    case "default":
+      return COLORS.light.primary;
+    case "destructive":
+      return COLORS.light.error;
+    case "outline":
+      return COLORS.light.borderColor;
+    case "ghost":
+    default:
+      return "transparent";
+  }
+}
 
 export default function Btn({
-  children,
+  label,
   variant = "default",
-  width,
-  height,
-  textColor = COLORS.light.text,
-  borderColor = COLORS.light.primary,
+  icon,
   onPress,
   disabled,
+  loading,
+  loadingDotsColor,
+  loadingDotsSize,
   style,
-  fontSize,
+  labelStyle,
+  iconName,
+  iconSize,
+  iconColor,
+  iconStroke,
 }: BtnProps) {
   return (
     <TouchableOpacity
@@ -23,30 +42,26 @@ export default function Btn({
         styles.btn,
         styles[variant],
         {
-          width,
-          height,
-          borderWidth: 1,
-          borderColor: variant === "ghost" ? "transparent" : borderColor,
+          borderWidth: variant === "outline" ? 1 : 0,
           opacity: disabled ? 0.5 : 1,
         },
       ]}
       onPress={onPress}
       disabled={disabled}
     >
-      {typeof children === "string" ? (
-        <Text
-          style={[
-            styles.btnText,
-            {
-              color: textColor,
-              fontSize: fontSize ? fontSize : moderateScale(18),
-            },
-          ]}
-        >
-          {children}
-        </Text>
-      ) : (
-        children
+      {icon && (
+        <SvgIcons
+          name={iconName}
+          size={iconSize}
+          color={iconColor}
+          stroke={iconStroke}
+        />
+      )}
+      {label && !loading && (
+        <Text style={[styles.btnText, labelStyle]}>{label}</Text>
+      )}
+      {loading && (
+        <Loading dotSize={loadingDotsSize} dotColor={loadingDotsColor} />
       )}
     </TouchableOpacity>
   );
@@ -55,8 +70,10 @@ export default function Btn({
 const styles = StyleSheet.create({
   btn: {
     borderRadius: 12,
+    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+    gap: 6,
   },
   default: {
     backgroundColor: COLORS.light.primary,
@@ -66,6 +83,9 @@ const styles = StyleSheet.create({
   },
   ghost: {
     backgroundColor: "transparent",
+  },
+  destructive: {
+    backgroundColor: COLORS.light.error,
   },
   btnText: {
     fontFamily: "IranYekan-Medium",

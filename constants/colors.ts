@@ -11,6 +11,11 @@ export const COLORS = {
     error: "#f03e3e",
     success: "#37b24d",
     primaryBtnText: "#fff",
+    destructiveBtnText: "#fff",
+    icon: "#282828",
+    renderItemBg: "#fff",
+    borderColor: "#888",
+    divider: "#888",
   },
   dark: {
     bg: "#282828",
@@ -24,5 +29,10 @@ export const COLORS = {
     error: "#f03e3e",
     success: "#37b24d",
     primaryBtnText: "#fff",
+    destructiveBtnText: "#fff",
+    icon: "#282828",
+    renderItemBg: "#fff",
+    borderColor: "#888",
+    divider: "#888",
   },
 };

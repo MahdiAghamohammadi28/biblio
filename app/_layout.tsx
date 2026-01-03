@@ -1,15 +1,14 @@
 import { supabase } from "@/utils/supabase";
 import { Session } from "@supabase/supabase-js";
 import { useFonts } from "expo-font";
-import { router, Stack, usePathname } from "expo-router";
+import { router, Stack } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
+import { StatusBar } from "expo-status-bar";
 import { useEffect, useState } from "react";
 
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
-  const pathname = usePathname();
-
   const [loaded, error] = useFonts({
     "IranYekan-Thin": require("@/assets/fonts/Iranyekan-Thin.ttf"),
     "IranYekan-Light": require("@/assets/fonts/Iranyekan-Light.ttf"),
@@ -67,5 +66,10 @@ export default function RootLayout() {
     return null;
   }
 
-  return <Stack screenOptions={{ headerShown: false }} />;
+  return (
+    <>
+      <Stack screenOptions={{ headerShown: false }} />
+      <StatusBar style="auto" />
+    </>
+  );
 }

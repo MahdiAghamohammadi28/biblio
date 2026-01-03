@@ -1,4 +1,4 @@
-import Btn from "@/components/onboarding-screen/ui/Btn";
+import Btn from "@/components/ui/Btn";
 import { COLORS } from "@/constants/colors";
 import { router } from "expo-router";
 import React from "react";
@@ -14,24 +14,33 @@ export default function Welcome() {
       </View>
       <View style={styles.btns}>
         <Btn
-          variant={"default"}
-          width={scale(200)}
-          height={verticalScale(40)}
-          textColor={COLORS.light.primaryBtnText}
-          onPress={() => router.replace("(auth)/sigup")}
-        >
-          ثبت نام
-        </Btn>
+          label="ثبت نام"
+          variant="default"
+          style={{
+            width: scale(200),
+            height: verticalScale(40),
+            borderColor: COLORS.light.primary,
+          }}
+          labelStyle={{
+            color: COLORS.light.primaryBtnText,
+            fontSize: moderateScale(14),
+          }}
+          onPress={() => router.replace("/(auth)/signup")}
+        />
         <Btn
+          label="ورود"
           variant="outline"
-          width={scale(200)}
-          height={verticalScale(40)}
-          textColor={COLORS.light.primary}
-          borderColor={COLORS.light.primary}
-          onPress={() => router.replace("(auth)/sigin")}
-        >
-          ورود
-        </Btn>
+          style={{
+            width: scale(200),
+            height: verticalScale(40),
+            borderColor: COLORS.light.primary,
+          }}
+          labelStyle={{
+            fontSize: moderateScale(14),
+            color: COLORS.light.primary,
+          }}
+          onPress={() => router.replace("/(auth)/signin")}
+        />
       </View>
     </View>
   );

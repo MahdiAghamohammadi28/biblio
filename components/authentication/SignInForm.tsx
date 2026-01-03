@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import React, { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import {
-  ActivityIndicator,
   Dimensions,
   KeyboardAvoidingView,
   StyleSheet,
@@ -134,19 +133,23 @@ export default function SignInForm() {
       {signInError && <Text style={styles.errorText}>{signInError}</Text>}
       <Btn
         variant="default"
-        width={"100%"}
-        height={verticalScale(40)}
-        textColor={COLORS.light.primaryBtnText}
+        label="ورود"
         onPress={handleSubmit(onSubmit)}
         disabled={isSubmitting}
-        style={{ marginTop: verticalScale(12) }}
-      >
-        {isSubmitting ? (
-          <ActivityIndicator size={20} color={COLORS.light.white} />
-        ) : (
-          "ورود"
-        )}
-      </Btn>
+        loading={isSubmitting}
+        loadingDotsColor={COLORS.light.white}
+        style={{
+          width: "100%",
+          height: verticalScale(40),
+          marginTop: verticalScale(12),
+          borderColor: COLORS.light.primary,
+        }}
+        labelStyle={{
+          color: COLORS.light.primaryBtnText,
+          fontSize: moderateScale(14),
+        }}
+      />
+
       <View style={styles.redirection}>
         <Text style={styles.redirectionLabel}>ثبت نام نکرده اید؟</Text>
         <Link href="/(auth)/signup">
